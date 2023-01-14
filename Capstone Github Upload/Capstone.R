@@ -4,8 +4,8 @@
 # Note: This code may take a long time to run.
 # The vast majority of the run-time is regularization.
 # To just run to verify final RMSE, first run the code up to line 851.
-# Skip lines 852-925, which take a long time to run.
-# Then run lines 926 to the end.
+# Skip lines 852-923, which takes a long time to run.
+# Then run lines 924-948.
 Sys.time()
 if (!require("tidyverse")) install.packages("tidyverse")
 if (!require("caret")) install.packages("caret")
@@ -949,7 +949,8 @@ save(edx_head, genrelist, movie_info, cors, movie_cors,
 ######
 # Removing quickly reproducible but large data and saving the rest in a rda
 # that contains almost everything.
+# Don't run this unless you have run the whole code.
 ######
-rm(sets, final_setpair, prep_edx, prep_validation)
-save.image("./Data/Capstone.rda")
+# rm(sets, final_setpair, prep_edx, prep_validation)
+# save.image("./Data/Capstone.rda")
 Sys.time()
