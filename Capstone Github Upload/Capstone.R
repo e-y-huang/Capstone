@@ -907,19 +907,17 @@ reg_g_all_tree_rmses <- generate_g_all_tree_rmses(l_m = g_all_lambdas$best_m,
 reg_g_all_tree_rmses # 0.8573745 0.8572931 0.8571587 
 
 # Saving all RMSE/lambda data.
-
 rmses <- rbind(basic_rmses, g_rmses, g_all_rmses,
                basic_tree_rmses, g_tree_rmses, g_all_tree_rmses,
                reg_basic_rmses, reg_g_rmses, reg_g_all_rmses, 
                reg_basic_tree_rmses, reg_g_tree_rmses, reg_g_all_tree_rmses) %>%
   cbind("Mean" = apply(., 2, mean), "Lambda Score" = apply(., 2, lambda_score))
-
-save(rmses, file = "./Data/Exploration.rda")
-rm(rmses,
-   basic_rmses, g_rmses, g_all_rmses,
-   basic_tree_rmses, g_tree_rmses, g_all_tree_rmses,
-   reg_basic_rmses, reg_g_rmses, reg_g_all_rmses, 
-   reg_basic_tree_rmses, reg_g_tree_rmses, reg_g_all_tree_rmses)
+save(rmses, 
+     basic_rmses, g_rmses, g_all_rmses,
+     basic_tree_rmses, g_tree_rmses, g_all_tree_rmses,
+     reg_basic_rmses, reg_g_rmses, reg_g_all_rmses, 
+     reg_basic_tree_rmses, reg_g_tree_rmses, reg_g_all_tree_rmses,
+     file = "./Data/Exploration.rda")
 #######################
 # End of Regularization
 #######################
@@ -935,10 +933,23 @@ final_rmse <- generate_g_all_tree_rmses(setpair = final_setpair,
                                         l_m = g_all_lambdas$best_m, 
                                         l_u = g_all_lambdas$best_u)
 print(paste("Final RMSE:", final_rmse)) # 0.8562876
+
 ######
-# Removing quickly reproducible but large data and saving the rest.
+# Saving some data used in report.
 ######
-rm(sets, final_setpair)
+edx_head <- head(edx, 5)
 lambdas <- rbind(basic_lambdas, g_lambdas, g_all_lambdas)
-save.image(file = "./Data/Capstone.rda")
+save(edx_head, genrelist, movie_info, cors, movie_cors, 
+     genre_count, movie_genre_count, 
+     movie_ratings_plot, release_plot, user_ratings_plot,
+     drama_plot, horror_plot, fantasy_plot, thriller_plot,
+     lambdas, final_rmse,
+     file = "./Data/Report.rda")
+
+######
+# Removing quickly reproducible but large data and saving the rest in a rda
+# that contains almost everything.
+######
+rm(sets, final_setpair, prep_edx, prep_validation)
+save.image("./Data/Capstone.rda")
 Sys.time()

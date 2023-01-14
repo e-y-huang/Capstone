@@ -9,7 +9,7 @@ output: pdf_document
 if (!require("knitr")) install.packages("knitr")
 library(knitr)
 load("./Data/Exploration.rda")
-load("./Data/Capstone.rda")
+load("./Data/Report.rda")
 opts_chunk$set(echo = T)
 ```
 <!-- an introduction/overview/executive summary section that 
@@ -22,7 +22,7 @@ the rating the user gave the movie, the timestamp of the rating,
 and the genres of the movie.
 
 ```{r Original Test Set, results = "asis"}
-kable(head(edx,5))
+kable(edx_head)
 ```
 The data was manipulated to extract features and regularization was used for 
 a tree model to accurately predict how users would rate movies in the dataset.
